@@ -166,3 +166,32 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 500);
 });
 
+// ############################################################
+// Step 3 hover debug
+// ############################################################
+
+document.addEventListener("DOMContentLoaded", function () {
+    const step3Stage = document.querySelector('.process-stage.no-hover');
+
+    if (!step3Stage) {
+        console.warn('[hover-debug] .process-stage.no-hover not found');
+        return;
+    }
+
+    const logState = (label, event) => {
+        const styles = window.getComputedStyle(step3Stage);
+        console.log('[hover-debug]', label, {
+            eventType: event.type,
+            target: event.target,
+            currentTarget: event.currentTarget,
+            classList: step3Stage.className,
+            borderColor: styles.borderColor,
+            boxShadow: styles.boxShadow,
+            transform: styles.transform
+        });
+    };
+
+    ['mouseenter', 'mouseleave', 'mouseover', 'mouseout'].forEach((evt) => {
+        step3Stage.addEventListener(evt, (event) => logState(evt, event));
+    });
+});
